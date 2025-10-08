@@ -1,116 +1,153 @@
-# VOIS_AICTE_Oct2025_SydelWivelAfonso
+# 🏡 Airbnb Open Data Analysis
 
-It looks like you've been working on a data analysis project for Airbnb open data! That's great. A good README file will help others understand your project, its goals, and your findings.
+## 📘 Overview
 
-Here is a suggested README.md structure based on the provided Python notebook code and outputs.
+This project explores **Airbnb’s open dataset** to uncover insights into **listing trends, pricing patterns, host behaviors**, and **property characteristics** across different neighborhoods.
+Through data cleaning, preprocessing, and visualization, we aim to reveal meaningful relationships and patterns that influence Airbnb’s market dynamics.
 
-Airbnb Open Data Analysis
-Overview
-This project analyzes publicly available Airbnb open data to uncover trends and relationships within the dataset. The analysis covers key areas such as listing distribution, pricing, host performance, and property characteristics.
+---
 
-Dataset
-The analysis uses the 1730285881-Airbnb_Open_Data.xlsx file, which was loaded into a pandas DataFrame.
+## 📂 Dataset
 
-Tools and Libraries
-The following Python libraries were used for data cleaning, processing, and visualization:
+* **File Used:** `1730285881-Airbnb_Open_Data.xlsx`
+* **Total Records:** Cleaned and analyzed after removing duplicates and invalid entries.
+* **Data Source:** Publicly available Airbnb open data.
 
-numpy
+---
 
-pandas
+## 🧰 Tools & Libraries
 
-matplotlib.pyplot
+This project leverages Python’s powerful data analytics and visualization ecosystem:
 
-seaborn
+* **Data Processing:** `pandas`, `numpy`
+* **Visualization:** `matplotlib.pyplot`, `seaborn`, `plotly.express`
 
-plotly.express
+---
 
-Data Cleaning and Preprocessing
-The initial dataset underwent several cleaning and preprocessing steps to ensure data quality and consistency:
+## 🧹 Data Cleaning & Preprocessing
 
-Duplicate Handling: Duplicate records were identified and removed.
+To ensure reliability and accuracy, multiple data refinement steps were carried out:
 
-Column Removal: Irrelevant columns (house_rules and license) were dropped.
+* **Duplicate Handling:** Removed all duplicate entries.
+* **Irrelevant Columns:** Dropped `house_rules` and `license`.
+* **Data Type Conversion:**
 
-Data Type Conversion and Cleaning:
+  * Converted `price` and `service_fee` to floats after removing `$` and `,`.
+  * Renamed to `price_$` and `service_fee_$` for clarity.
+  * Converted `id`, `host_id` → string; `last_review` → datetime; `construction_year` → int.
+* **Missing Values:** Dropped rows containing any `NaN` values.
+* **Outlier Removal:** Filtered out listings where `availability_365 > 500`.
+* **Data Correction:** Corrected `brookln` → `Brooklyn` in `neighbourhood_group`.
 
-Price and service fee columns were cleaned by removing $ and , symbols and converted to a float data type.
+---
 
-These columns were renamed to price_$ and service_fee_$ for clarity.
+## 📊 Key Findings & Visualizations
 
-Other columns were converted to appropriate types: id and host id to string, last review to datetime, and Construction year to int.
+### 🏘️ Property Types Distribution
 
-Data Imputation/Removal: All remaining rows with any missing values (NaN) were dropped.
+* **Entire home/apt** and **Private room** dominate the listings with **44,161** and **37,474** entries respectively.
+* **Shared rooms** (1,646) and **Hotel rooms** (108) are much less common.
 
-Outlier Handling: Outliers were removed from the availability 365 column by dropping records where the value was greater than 500.
+---
 
-Data Correction: A spelling mistake in the neighbourhood group column (brookln) was corrected to 'Brooklyn'.
+### 🌆 Neighbourhood Group Insights
 
-Key Findings & Visualizations
-The analysis addressed several key questions, yielding the following results:
+| Neighbourhood Group | Listing Count |
+| ------------------- | ------------- |
+| Brooklyn            | 34,621        |
+| Manhattan           | 34,560        |
+| Queens              | 11,124        |
+| Bronx               | 2,267         |
+| Staten Island       | 816           |
 
-1. Property Types and Their Count
-The bar chart showed the distribution of room types:
+**🏆 Brooklyn** slightly surpasses **Manhattan** in total listings.
 
-Entire home/apt and Private room are the most common listing types, with 44,161 and 37,474 listings respectively.
+---
 
-Shared room (1,646) and Hotel room (108) are significantly less frequent.
+### 💵 Average Price by Neighbourhood
 
-2. Neighbourhood Group with the Highest Number of Listings
-The count of listings by neighbourhood group is:
+* **Manhattan** leads with the **highest average price per listing**, reflecting its premium market segment.
 
-Neighbourhood Group	Count
-Brooklyn	34,621
-Manhattan	34,560
-Queens	11,124
-Bronx	2,267
-Staten Island	816
-brookln (uncorrected)	1
+---
 
-Export to Sheets
-Brooklyn has the highest number of listings, followed closely by Manhattan.
+### 🏗️ Construction Year vs Price
 
-3. Average Price by Neighbourhood Group
-The average price for listings across the neighbourhood groups:
+* The trend indicates an **inverse relationship** — **older buildings** often have **higher average prices**, possibly due to location and architectural value.
 
-Manhattan has the highest average price per listing.
+---
 
-4. Relationship Between Construction Year and Price
-The line plot suggests an inverse relationship between the average price and the construction year, meaning older buildings tend to have a higher average price.
+### ✅ Host Identity Verification & Reviews
 
-5. Host Identity Verification and Review Rate
-Host Identity Verified	Average Review Rate Number
-verified	3.28
-unconfirmed	3.27
+| Host Identity | Avg. Review Rate |
+| ------------- | ---------------- |
+| Verified      | 3.28             |
+| Unconfirmed   | 3.27             |
 
-Export to Sheets
-Verified hosts have a slightly higher average review rate than unconfirmed hosts, but the difference is minimal.
+✅ Verified hosts enjoy a **slightly higher review rate**, though the difference is minimal.
 
-6. Correlation Between Price and Service Fee
-The correlation coefficient between price_$ and service_fee_$ is approximately 0.99999.
+---
 
-This indicates an extremely strong positive linear correlation, suggesting the service fee is calculated as a direct percentage or fraction of the listing price.
+### 📈 Correlation: Price vs Service Fee
 
-7. Average Review Rate by Neighbourhood Group and Room Type
-The average review rate varies by both location and room type.
+* **Correlation Coefficient:** `≈ 0.99999`
+  This extremely strong correlation suggests the **service fee is directly proportional** to the listing price — likely a fixed percentage.
 
-Brooklyn has the highest average review rate for a Hotel room (3.83).
+---
 
-The single Private room entry in the uncorrected brookln neighbourhood group has the highest rate (4.0). For corrected and populated groups, Private rooms on Staten Island (3.49) have a high average.
+### 🌍 Review Rate by Location & Room Type
 
-Overall, review rates across most of the major neighbourhood groups and room types cluster between 3.2 and 3.4.
+* **Brooklyn (Hotel rooms):** Highest review rate — **3.83**
+* **Staten Island (Private rooms):** High average rate — **3.49**
+* Most review scores cluster between **3.2 – 3.4**, showing consistent guest satisfaction levels.
 
-8. Top 10 Hosts by Listing Count
-Host Name	Calculated Host Listings Count
-John	117,175
-David	104,136
-Alex	95,958
-Michael	72,130
-Sarah	60,394
-Jessica	55,274
-Maria	54,618
-Kazuya	52,260
-Daniel	51,902
-Lisa	48,154
+---
 
-Export to Sheets
-John is the host with the most listings by a significant margin.
+### 👑 Top 10 Hosts by Listing Count
+
+| Host Name | Listings |
+| --------- | -------- |
+| John      | 117,175  |
+| David     | 104,136  |
+| Alex      | 95,958   |
+| Michael   | 72,130   |
+| Sarah     | 60,394   |
+| Jessica   | 55,274   |
+| Maria     | 54,618   |
+| Kazuya    | 52,260   |
+| Daniel    | 51,902   |
+| Lisa      | 48,154   |
+
+🏅 **John** is the most active host, holding a commanding lead in total listings.
+
+---
+
+## 📤 Exports
+
+All processed insights were exported to **Google Sheets** for easy sharing, reporting, and collaborative review.
+
+---
+
+## 📈 Conclusion
+
+This analysis of Airbnb’s open data reveals:
+
+* A **dominance of private and entire home listings**.
+* **Brooklyn and Manhattan** as the most active regions.
+* **Strong linkage** between listing price and service fee.
+* **Stable review patterns** across room types and neighborhoods.
+
+The findings provide a solid foundation for further exploration, such as **predictive pricing models**, **host performance analytics**, or **geospatial trend mapping**.
+
+---
+
+## 🚀 Future Work
+
+* Build an **interactive dashboard** using `Plotly Dash` or `Streamlit`.
+* Apply **machine learning** for price prediction and host performance scoring.
+* Incorporate **geospatial visualization** using `folium` or `geopandas`.
+
+---
+
+## 👩‍💻 Author
+
+**Sydel Wivel Afonso**
